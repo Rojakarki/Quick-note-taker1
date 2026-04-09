@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Note Taker</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        textarea {
+            width: 90%;
+            height: 60vh;
+            font-size: 18px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: none;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 40px;
+            font-size: 18px;
+            background: #316357;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #264d43;
+        }
+
+        #save-as {
+            background: #4a6fa5;
+        }
+
+        #save-as:hover {
+            background: #3a5a85;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📝 Quick Note Taker roja</h1>
+
+    <textarea id="note" placeholder="Start typing your note..."></textarea>
+    
+    <div class="button-container">
+        <button id="save">💾 Save Note</button>
+        <button id="save-as">📂 Save As...</button>
+    </div>
+
+    <div id="status" style="margin-top:10px; color:#333;font-size:0.9em;"></div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

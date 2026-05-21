@@ -1,2 +1,79 @@
 
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+[save-note-json] OK -> C:\Users\user-5\AppData\Roaming\quick-note-taker\notes.json
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
+Error occurred in handler for 'save-settings': ReferenceError: updated is not defined
+    at C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\main.js:230:19
+    at Session.<anonymous> (node:electron/js2c/browser_init:2:116346)
+    at Session.emit (node:events:508:28)
 C:\Users\user-5\Desktop\electron-app\Quick-note-taker1\node_modules\electron\dist\electron.exe exited with signal SIGINT

@@ -9,4 +9,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     deleteNote:       (id)  =>             ipcRenderer.invoke('delete-note', id),
     setUnsavedChanges:(unsaved) =>         ipcRenderer.invoke('set-unsaved-changes', unsaved),
     onMenuAction:     (channel, callback) => ipcRenderer.on(channel, callback),
+    getSettings:      ()   =>              ipcRenderer.invoke('get-settings'),
+    saveSettings:     (settings) =>        ipcRenderer.invoke('save-settings', settings)
 });

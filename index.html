@@ -84,7 +84,7 @@
         }
 
         textarea:focus {
-            border-color: #316357;    
+            border-color: #316357;
         }
 
         #toolbar {
@@ -169,6 +169,10 @@
             color: gray;
             min-height: 18px;
         }
+        #word-count{
+            font-size: 12px;
+            color: #999;
+        }
     </style>
 </head>
 
@@ -185,12 +189,14 @@
                 <button id="save">Save</button>
                 <button id="save-as">Save-as</button>
                 <button id="open-file">Open File</button>
+                <button id="font-increase">A+</button>
+                <button id="font-decrease">A-</button>
             </div>
             <p id="save_status"></p>
+            <P id="word-count">Words: 0 | Characters: 0</P>
         </div>
     </div>
     <script src="renderer.js"></script>
 </body>
 
 </html>
-

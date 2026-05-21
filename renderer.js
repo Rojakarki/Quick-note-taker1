@@ -9,6 +9,45 @@ window.addEventListener('DOMContentLoaded', async () => {
     const noteList    = document.getElementById('note-list');
     const statusEl    = document.getElementById('save_status');
 
+    const settings = await window.electronAPI.getSettings();
+    applyFontSize(settings.fontSize || 16);
+
+    function updateWordCount(){
+    const text = textarea.value;
+    const characters = text.length;
+    const words = text.trim() === ''? 0 : text.trim().split(/\s+/).length;
+    const wordCountEl=document.getElementById('word-count');
+    wordCountEl.textContent=`Words: ${words} | Characters : ${characters}`;
+    }
+    textarea.addEventListener('input', () =>{
+        updateWordCount();
+        statusEl.textCount();
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(saveCurrentNote, 5000);
+    });
+    async function switchNote(id) {
+        textarea.value = note.content || '';
+        updateWordCount();
+    }
+
+    const fontIncreaseBtn = document.getElementById('font-increase');
+    const fontDecreaseBtn = document.getElementById('font-decrease');
+
+    function applyFontSize(size){
+        currentFontSize = Math.min(42, Math.max(10,size));
+        textarea.style.fontSize = `${currentFontSize}px`;
+    }
+
+    fontIncreaseBtn.addEventListener('click', async () =>{
+        applyFontSize(currentFontSize + 2);
+        await window.electronAPI.saveSettings ({fontSize: currentFontSize});
+    })
+
+    fontDecreaseBtn.addEventListener("click",async () =>{
+        applyFontSize(currentFontSize - 2);
+        await window.electronAPI.saveSettings({ fontSize: currentFontSize});
+    })
+
     // State
     let notes           = [];         // all notes loaded from JSON
     let currentNoteId   = null;       // id of the note being edited
@@ -194,13 +233,13 @@ window.addEventListener('DOMContentLoaded', async () => {
         };
 
         await window.electronAPI.saveNoteJson(newNote);
-        notes.unshift(newNote);         // add to the top of the list
+        notes.unshift(newNote);         
         currentNoteId        = newNote.id;
         titleInput.value     = '';
         textarea.value       = '';
         lastSavedContent     = '';
         renderNotesList();
-        titleInput.focus();             // move cursor to title field
+        titleInput.focus();             
         statusEl.textContent = 'New note created.';
     });
 
@@ -232,6 +271,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     window.electronAPI.onMenuAction('menu-save',      () => saveBtn.click());
     window.electronAPI.onMenuAction('menu-save-as',   () => saveAsBtn.click());
 
+    
+
     // ── Init ──────────────────────────────────────────────────────────────────
 
     // UPDATED: Load all notes on startup
@@ -247,6 +288,8 @@ window.addEventListener('DOMContentLoaded', async () => {
         // No notes yet – trigger New Note automatically
         newNoteBtn.click();
     }
+
+    
 
     renderNotesList();
 });

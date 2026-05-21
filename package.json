@@ -6,13 +6,14 @@
     "start": "electron . --ozone-platform=x11 --disable-gpu --no-sandbox > electron.log 2>&1"
   },
   "devDependencies": {
-    "electron": "^40.8.5"
+    "electron": "^40.8.2"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@google-cloud/speech": "^7.3.0",
     "boolean": "^3.2.0",
     "buffer-crc32": "^0.2.13",
     "cacheable-lookup": "^5.0.4",
@@ -50,6 +51,7 @@
     "matcher": "^3.0.0",
     "mimic-response": "^1.0.1",
     "ms": "^2.1.3",
+    "node-record-lpcm16": "^1.0.1",
     "normalize-url": "^6.1.0",
     "object-keys": "^1.1.1",
     "once": "^1.4.0",
@@ -81,4 +83,4 @@
     "url": "https://github.com/overobot/quick-note-taker/issues"
   },
   "homepage": "https://github.com/overobot/quick-note-taker#readme"
-}
+} 

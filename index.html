@@ -1,76 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quick Note Taker</title>
+
     <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            padding: 20px;
-            background: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        h1 {
-            color: #333;
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f4f4f4;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #app {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* ── Sidebar ── */
+        #sidebar {
+            width: 220px;
+            min-width: 220px;
+            background: #2b2b2b;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            gap: 8px;
+        }
+
+        #note-list {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        #note-list::-webkit-scrollbar { width: 4px; }
+        #note-list::-webkit-scrollbar-track { background: transparent; }
+        #note-list::-webkit-scrollbar-thumb { background: #4a4a4a; border-radius: 4px; }
+
+        /* ── Editor ── */
+        #editor {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        #note-title {
+            font-size: 18px;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        #note-title:focus {
+            border-color: #316357;
         }
 
         textarea {
-            width: 90%;
-            height: 60vh;
-            font-size: 18px;
-            padding: 15px;
+            flex: 1;
+            font-size: 15px;
+            line-height: 1.6;
+            padding: 12px;
             border: 1px solid #ccc;
-            border-radius: 8px;
+            border-radius: 6px;
             resize: none;
+            outline: none;
+            transition: border-color 0.15s;
+            font-family: inherit;
         }
 
-        .button-container {
+        textarea:focus {
+            border-color: #316357;
+        }
+
+        #toolbar {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 8px;
+            align-items: center;
         }
 
+        /* ── Buttons ── */
         button {
-            padding: 12px 40px;
-            font-size: 18px;
+            padding: 8px 14px;
+            font-size: 14px;
+            border: none;
             background: #316357;
             color: white;
-            border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background 0.15s;
         }
 
-        button:hover {
-            background: #264d43;
+        button:hover { background: #3d7a6b; }
+        button:active { background: #265049; }
+
+        #new-note {
+            width: 100%;
+            margin-bottom: 4px;
         }
 
-        #save-as {
-            background: #4a6fa5;
+        /* ── Note list items ── */
+        .note-item {
+            background: #3a3a3a;
+            border-radius: 6px;
+            padding: 8px 10px;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.12s;
         }
 
-        #save-as:hover {
-            background: #3a5a85;
+        .note-item:hover { background: #4a4a4a; }
+        .note-item.active { background: #316357; }
+
+        .note-item-title {
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 20px;
+        }
+
+        .note-item-date {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 3px;
+        }
+
+        .note-item-delete {
+            background: transparent;
+            border: none;
+            color: #ff6b6b;
+            font-size: 13px;
+            cursor: pointer;
+            padding: 0;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            line-height: 1;
+            opacity: 0;
+            transition: opacity 0.12s;
+        }
+
+        .note-item:hover .note-item-delete,
+        .note-item.active .note-item-delete {
+            opacity: 1;
+        }
+
+        .note-item-delete:hover { color: #ff4444; background: transparent; }
+
+        /* ── Status bar ── */
+        #save_status {
+            font-size: 13px;
+            color: gray;
+            min-height: 18px;
         }
     </style>
 </head>
+
 <body>
-
-    <h1>📝 Quick Note Taker roja</h1>
-
-    <textarea id="note" placeholder="Start typing your note..."></textarea>
-    
-    <div class="button-container">
-        <button id="save">💾 Save Note</button>
-        <button id="save-as">📂 Save As...</button>
+    <div id="app">
+        <div id="sidebar">
+            <button id="new-note">New Note</button>
+            <div id="note-list"></div>
+        </div>
+        <div id="editor">
+            <input type="text" id="note-title" placeholder="Note title…">
+            <textarea id="note" placeholder="Start typing your note…"></textarea>
+            <div id="toolbar">
+                <button id="save">Save</button>
+                <button id="save-as">Save-as</button>
+                <button id="open-file">Open File</button>
+            </div>
+            <p id="save_status"></p>
+        </div>
     </div>
-
-    <div id="status" style="margin-top:10px; color:#333;font-size:0.9em;"></div>
-
     <script src="renderer.js"></script>
 </body>
+
 </html>
+

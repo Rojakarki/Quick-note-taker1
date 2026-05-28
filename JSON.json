@@ -1,0 +1,2 @@
+"start": "electron . --ozone-platform=x11 --disable-gpu --no-sandbox > electron.log 2>&1"
+"start": "electron ."

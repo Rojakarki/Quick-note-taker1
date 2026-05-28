@@ -170,23 +170,88 @@
             border-color: #316357;
         }
 
-        textarea {
+        /* ── Rich text editor (replaces textarea) ── */
+        #note {
             flex: 1;
             font-size: 16px;
             padding: 12px;
-            resize: none;
             border: 1px solid var(--border-color);
             border-radius: 6px;
             background: var(--bg-editor);
             color: var(--text-primary);
             font-family: inherit;
+            overflow-y: auto;
+            outline: none;
+            line-height: 1.6;
+            word-wrap: break-word;
+            white-space: pre-wrap;
         }
 
-        textarea:focus {
-            outline: none;
+        #note:focus {
             border-color: #316357;
         }
 
+        #note:empty::before {
+            content: attr(data-placeholder);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* ── Formatting toolbar ── */
+        #format-toolbar {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            padding: 5px 8px;
+            background: var(--bg-editor);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            flex-wrap: wrap;
+        }
+
+        .fmt-btn {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: inherit;
+            transition: background 0.12s, border-color 0.12s;
+            min-width: 32px;
+            text-align: center;
+        }
+
+        .fmt-btn:hover {
+            background: var(--button-bg);
+            color: #fff;
+            border-color: var(--button-bg);
+        }
+
+        .fmt-btn:active {
+            background: #265049;
+            color: #fff;
+        }
+
+        .fmt-btn.active {
+            background: var(--button-bg);
+            color: #fff;
+            border-color: var(--button-bg);
+        }
+
+        .fmt-btn[data-cmd="bold"]      { font-weight: bold; }
+        .fmt-btn[data-cmd="italic"]    { font-style: italic; }
+        .fmt-btn[data-cmd="underline"] { text-decoration: underline; }
+
+        .fmt-separator {
+            width: 1px;
+            height: 20px;
+            background: var(--border-color);
+            margin: 0 4px;
+        }
+
+        /* ── Main toolbar ── */
         #toolbar {
             display: flex;
             gap: 8px;
@@ -232,7 +297,6 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            /* leave room for lock + delete icons */
             padding-right: 40px;
             color: var(--text-sidebar);
         }
@@ -243,7 +307,6 @@
             margin-top: 3px;
         }
 
-        /* lock badge on note item */
         .note-item-lock-badge {
             position: absolute;
             top: 8px;
@@ -382,7 +445,31 @@
             <!-- Actual editor content -->
             <div id="editor-content">
                 <input type="text" id="note-title" placeholder="Note title…">
-                <textarea id="note" placeholder="Start typing your note…"></textarea>
+
+                <!-- ── Rich text formatting toolbar ── -->
+                <div id="format-toolbar">
+                    <button class="fmt-btn" data-cmd="bold"      title="Bold (Ctrl+B)"><b>B</b></button>
+                    <button class="fmt-btn" data-cmd="italic"    title="Italic (Ctrl+I)"><i>I</i></button>
+                    <button class="fmt-btn" data-cmd="underline" title="Underline (Ctrl+U)"><u>U</u></button>
+                    <div class="fmt-separator"></div>
+                    <button class="fmt-btn" data-cmd="insertUnorderedList" title="Bullet List">• List</button>
+                    <button class="fmt-btn" data-cmd="insertOrderedList"   title="Numbered List">1. List</button>
+                    <div class="fmt-separator"></div>
+                    <button class="fmt-btn" data-cmd="justifyLeft"   title="Align Left">⬅</button>
+                    <button class="fmt-btn" data-cmd="justifyCenter" title="Center">☰</button>
+                    <button class="fmt-btn" data-cmd="justifyRight"  title="Align Right">➡</button>
+                    <div class="fmt-separator"></div>
+                    <button class="fmt-btn" id="clear-format-btn"    title="Clear Formatting">Tx</button>
+                </div>
+
+                <!-- contenteditable div replaces <textarea> -->
+                <div
+                    id="note"
+                    contenteditable="true"
+                    data-placeholder="Start typing your note…"
+                    spellcheck="true"
+                ></div>
+
                 <div id="toolbar">
                     <button id="save">Save</button>
                     <button id="save-as">Save-as</button>

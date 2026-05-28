@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog, Menu, Tray } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, Menu, Tray, Notification } = require('electron');
 
 app.disableHardwareAcceleration();
 const path = require('node:path');
@@ -8,6 +8,7 @@ const fs   = require('node:fs');
 const notesFilePath = path.join(app.getPath('userData'), 'notes.json');
 const settingsFilePath = path.join(app.getPath('userData'), 'settings.json');
 let hasUnsavedChanges = false;
+
 
 function readNotes() {
     if (!fs.existsSync(notesFilePath)) return [];

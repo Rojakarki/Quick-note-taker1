@@ -5,6 +5,42 @@
     <title>Quick Note Taker</title>
 
     <style>
+        :root {
+            --bg-primary: #f4f4f4;
+            --bg-sidebar: #2b2b2b;
+            --bg-editor: #ffffff;
+            --bg-note-item: #3a3a3a;
+            --bg-note-item-hover: #4a4a4a;
+            --bg-note-item-active: #316357;
+
+            --text-primary: #000000;
+            --text-sidebar: #ffffff;
+            --text-muted: #999999;
+
+            --border-color: #cccccc;
+
+            --button-bg: #316357;
+            --button-hover: #3d7a6b;
+        }
+
+        body.dark-mode {
+            --bg-primary: #1e1e1e;
+            --bg-sidebar: #141414;
+            --bg-editor: #252525;
+            --bg-note-item: #2a2a2a;
+            --bg-note-item-hover: #333333;
+            --bg-note-item-active: #316357;
+
+            --text-primary: #f0f0f0;
+            --text-sidebar: #dddddd;
+            --text-muted: #777777;
+
+            --border-color: #444444;
+
+            --button-bg: #316357;
+            --button-hover: #3d7a6b;
+        }
+
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -12,10 +48,9 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: #f4f4f4;
+            font-family: system-ui;
+            background: var(--bg-primary);
             height: 100vh;
-            overflow: hidden;
         }
 
         #app {
@@ -26,9 +61,8 @@
         /* ── Sidebar ── */
         #sidebar {
             width: 220px;
-            min-width: 220px;
-            background: #2b2b2b;
-            color: white;
+            background: var(--bg-sidebar);
+            color: var(--text-sidebar);
             display: flex;
             flex-direction: column;
             padding: 10px;
@@ -47,43 +81,109 @@
         #note-list::-webkit-scrollbar-track { background: transparent; }
         #note-list::-webkit-scrollbar-thumb { background: #4a4a4a; border-radius: 4px; }
 
-        /* ── Editor ── */
+        /* ── Editor wrapper ── */
         #editor {
             flex: 1;
             display: flex;
             flex-direction: column;
+            background: var(--bg-editor);
+            position: relative;
+        }
+
+        /* ── Lock screen overlay ── */
+        #lock-screen {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: var(--bg-editor);
+            z-index: 10;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        #lock-screen h2 {
+            color: var(--text-primary);
+            font-size: 20px;
+        }
+
+        #lock-screen .lock-icon {
+            font-size: 52px;
+        }
+
+        #lock-input {
+            padding: 10px 14px;
+            font-size: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-editor);
+            color: var(--text-primary);
+            width: 260px;
+            text-align: center;
+        }
+
+        #lock-input:focus {
+            outline: none;
+            border-color: #316357;
+        }
+
+        #lock-submit {
+            padding: 9px 24px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #fff;
+            border: none;
+            background: var(--button-bg);
+        }
+
+        #lock-submit:hover { background: var(--button-hover); }
+
+        #lock-error {
+            color: #e05252;
+            font-size: 13px;
+            min-height: 18px;
+        }
+
+        /* ── Editor content ── */
+        #editor-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
             padding: 15px;
             gap: 10px;
-            min-width: 0;
+            overflow: hidden;
         }
 
         #note-title {
             font-size: 18px;
-            padding: 8px 10px;
-            border: 1px solid #ccc;
+            padding: 8px;
+            border: 1px solid var(--border-color);
             border-radius: 6px;
-            outline: none;
-            transition: border-color 0.15s;
+            background: var(--bg-editor);
+            color: var(--text-primary);
         }
 
         #note-title:focus {
+            outline: none;
             border-color: #316357;
         }
 
         textarea {
             flex: 1;
-            font-size: 15px;
-            line-height: 1.6;
+            font-size: 16px;
             padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
             resize: none;
-            outline: none;
-            transition: border-color 0.15s;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-editor);
+            color: var(--text-primary);
             font-family: inherit;
         }
 
         textarea:focus {
+            outline: none;
             border-color: #316357;
         }
 
@@ -91,31 +191,31 @@
             display: flex;
             gap: 8px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         /* ── Buttons ── */
         button {
-            padding: 8px 14px;
-            font-size: 14px;
+            background: var(--button-bg);
+            color: #fff;
             border: none;
-            background: #316357;
-            color: white;
-            border-radius: 8px;
+            padding: 7px 13px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background 0.15s;
+            font-size: 13px;
         }
 
-        button:hover { background: #3d7a6b; }
+        button:hover  { background: var(--button-hover); }
         button:active { background: #265049; }
 
         #new-note {
             width: 100%;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         /* ── Note list items ── */
         .note-item {
-            background: #3a3a3a;
+            background: var(--bg-note-item);
             border-radius: 6px;
             padding: 8px 10px;
             cursor: pointer;
@@ -123,8 +223,8 @@
             transition: background 0.12s;
         }
 
-        .note-item:hover { background: #4a4a4a; }
-        .note-item.active { background: #316357; }
+        .note-item:hover  { background: var(--bg-note-item-hover); }
+        .note-item.active { background: var(--bg-note-item-active); }
 
         .note-item-title {
             font-size: 13px;
@@ -132,13 +232,25 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            padding-right: 20px;
+            /* leave room for lock + delete icons */
+            padding-right: 40px;
+            color: var(--text-sidebar);
         }
 
         .note-item-date {
             font-size: 11px;
-            color: #aaa;
+            color: var(--text-muted);
             margin-top: 3px;
+        }
+
+        /* lock badge on note item */
+        .note-item-lock-badge {
+            position: absolute;
+            top: 8px;
+            right: 26px;
+            font-size: 12px;
+            line-height: 1;
+            opacity: 0.75;
         }
 
         .note-item-delete {
@@ -157,45 +269,152 @@
         }
 
         .note-item:hover .note-item-delete,
-        .note-item.active .note-item-delete {
-            opacity: 1;
-        }
+        .note-item.active .note-item-delete { opacity: 1; }
 
         .note-item-delete:hover { color: #ff4444; background: transparent; }
 
-        /* ── Status bar ── */
-        #save_status {
+        /* ── Status / count ── */
+        #save_status { color: var(--text-muted); font-size: 12px; }
+        #word-count  { color: var(--text-muted); font-size: 12px; }
+
+        #search {
+            padding: 7px;
+            border-radius: 6px;
+            border: none;
+            background: var(--bg-note-item);
+            color: var(--text-sidebar);
             font-size: 13px;
-            color: gray;
-            min-height: 18px;
+            width: 100%;
         }
-        #word-count{
+
+        #search:focus { outline: none; }
+
+        /* Lock button — red tint when note is locked */
+        #set-lock { transition: background 0.15s; }
+        #set-lock.locked { background: #8b3a3a; }
+        #set-lock.locked:hover { background: #a84444; }
+
+        /* ── Set-password modal ── */
+        #lock-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+        }
+        #lock-modal-overlay.visible { display: flex; }
+
+        #lock-modal {
+            background: var(--bg-editor);
+            border-radius: 10px;
+            padding: 28px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 320px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+        }
+
+        #lock-modal h3 {
+            color: var(--text-primary);
+            font-size: 16px;
+            margin: 0;
+        }
+
+        #lock-modal input {
+            padding: 9px 12px;
+            font-size: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-editor);
+            color: var(--text-primary);
+            width: 100%;
+        }
+
+        #lock-modal input:focus {
+            outline: none;
+            border-color: #316357;
+        }
+
+        #lock-modal .modal-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        #lock-modal .modal-actions .cancel-btn {
+            background: #555;
+        }
+        #lock-modal .modal-actions .cancel-btn:hover {
+            background: #666;
+        }
+        #lock-modal-error {
+            color: #e05252;
             font-size: 12px;
-            color: #999;
+            min-height: 16px;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
+        <!-- Sidebar -->
         <div id="sidebar">
             <button id="new-note">New Note</button>
+            <input type="text" id="search" placeholder="Search Notes....">
             <div id="note-list"></div>
         </div>
+
+        <!-- Editor -->
         <div id="editor">
-            <input type="text" id="note-title" placeholder="Note title…">
-            <textarea id="note" placeholder="Start typing your note…"></textarea>
-            <div id="toolbar">
-                <button id="save">Save</button>
-                <button id="save-as">Save-as</button>
-                <button id="open-file">Open File</button>
-                <button id="font-increase">A+</button>
-                <button id="font-decrease">A-</button>
+
+            <!-- Per-note lock screen overlay -->
+            <div id="lock-screen">
+                <div class="lock-icon">🔒</div>
+                <h2>Note is locked</h2>
+                <input type="password" id="lock-input" placeholder="Enter note password…">
+                <button id="lock-submit">Unlock</button>
+                <div id="lock-error"></div>
             </div>
-            <p id="save_status"></p>
-            <P id="word-count">Words: 0 | Characters: 0</P>
+
+            <!-- Actual editor content -->
+            <div id="editor-content">
+                <input type="text" id="note-title" placeholder="Note title…">
+                <textarea id="note" placeholder="Start typing your note…"></textarea>
+                <div id="toolbar">
+                    <button id="save">Save</button>
+                    <button id="save-as">Save-as</button>
+                    <button id="open-file">Open File</button>
+                    <button id="font-increase">A+</button>
+                    <button id="font-decrease">A-</button>
+                    <button id="dark-mode-toggle">Dark Mode</button>
+                    <button id="set-lock">🔓 Lock Note</button>
+                </div>
+                <p id="save_status"></p>
+                <p id="word-count">Words: 0 | Characters: 0</p>
+            </div>
         </div>
     </div>
+
+    <!-- Set / change / remove password modal -->
+    <div id="lock-modal-overlay">
+        <div id="lock-modal">
+            <h3 id="lock-modal-title">Set Note Password</h3>
+            <input type="password" id="lock-modal-new"     placeholder="New password">
+            <input type="password" id="lock-modal-confirm" placeholder="Confirm password">
+            <!-- shown only when changing/removing an existing password -->
+            <input type="password" id="lock-modal-current" placeholder="Current password (to verify)" style="display:none">
+            <div id="lock-modal-error"></div>
+            <div class="modal-actions">
+                <button id="lock-modal-remove"  style="display:none; background:#8b3a3a;">Remove Lock</button>
+                <button id="lock-modal-cancel"  class="cancel-btn">Cancel</button>
+                <button id="lock-modal-confirm-btn">Save</button>
+            </div>
+        </div>
+    </div>
+
     <script src="renderer.js"></script>
 </body>
 
